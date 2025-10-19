@@ -10,13 +10,15 @@ interface NavbarProps {
 }
 
 const Navbar = ({ isProjectOpen, onCloseProject }: NavbarProps) => {
-  const menuItems = useMemo(() => ["Home", "Projects", "Skills", "About", "Contact"], []);
+  const menuItems = useMemo(
+    () => ["Home", "Projects", "Skills", "About", "Contact"],
+    []
+  );
   const containerRef = useRef<HTMLUListElement>(null);
   const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
   const [prevScroll, setPrevScroll] = useState(0);
   const [visible, setVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu state
-  const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
   const [position, setPosition] = useState({
     top: 0,
     left: 0,
@@ -56,14 +58,37 @@ const Navbar = ({ isProjectOpen, onCloseProject }: NavbarProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (isProjectOpen) {
+      const projectsItem = itemRefs.current["projects"];
+      if (projectsItem) {
+        setPosition({
+          top: projectsItem.offsetTop,
+          left: projectsItem.offsetLeft,
+          width: projectsItem.offsetWidth,
+          height: projectsItem.offsetHeight,
+        });
+      }
+    } else {
+      const homeItem = itemRefs.current["home"];
+      if (homeItem) {
+        setPosition({
+          top: homeItem.offsetTop,
+          left: homeItem.offsetLeft,
+          width: homeItem.offsetWidth,
+          height: homeItem.offsetHeight,
+        });
+      }
+    }
+  }, [isProjectOpen]);
+
   const handleItemClick = (label: string) => {
     const sectionId = label.toLowerCase();
     const section = document.getElementById(sectionId);
     const navItem = itemRefs.current[sectionId];
 
-    if (isProjectOpen && !section) {
-      setPendingNavigation(sectionId);
-      onCloseProject();
+    if (isProjectOpen) {
+      window.location.href = `/?scrollTo=${sectionId}`;
       setMenuOpen(false);
       return;
     }
@@ -85,30 +110,8 @@ const Navbar = ({ isProjectOpen, onCloseProject }: NavbarProps) => {
   };
 
   useEffect(() => {
-    if (pendingNavigation && !isProjectOpen) {
-      setTimeout(() => {
-        const section = document.getElementById(pendingNavigation);
-        const navItem = itemRefs.current[pendingNavigation];
-        
-        if (section) {
-          section.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        
-        if (navItem) {
-          setPosition({
-            top: navItem.offsetTop,
-            left: navItem.offsetLeft,
-            width: navItem.offsetWidth,
-            height: navItem.offsetHeight,
-          });
-        }
-        
-        setPendingNavigation(null);
-      }, 100);
-    }
-  }, [pendingNavigation, isProjectOpen]);
+    if (isProjectOpen) return;
 
-  useEffect(() => {
     const defaultObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -145,27 +148,96 @@ const Navbar = ({ isProjectOpen, onCloseProject }: NavbarProps) => {
       { threshold: 0.2 }
     );
 
-    menuItems.forEach((label) => {
-      const id = label.toLowerCase();
-      const section = document.getElementById(id);
-      if (section) {
-        if (id === "projects") {
-          projectsObserver.observe(section);
-        } else {
-          defaultObserver.observe(section);
+    // Use a delay to ensure sections are in the DOM and animations complete
+    const timer = setTimeout(() => {
+      let hasSetInitialPosition = false;
+
+      menuItems.forEach((label) => {
+        const id = label.toLowerCase();
+        const section = document.getElementById(id);
+        if (section) {
+          // Check if section is currently in viewport and set position
+          const rect = section.getBoundingClientRect();
+          const inViewport =
+            rect.top < window.innerHeight * 0.6 &&
+            rect.bottom > window.innerHeight * 0.4;
+
+          if (inViewport && !hasSetInitialPosition) {
+            const navItem = itemRefs.current[id];
+            if (navItem) {
+              setPosition({
+                top: navItem.offsetTop,
+                left: navItem.offsetLeft,
+                width: navItem.offsetWidth,
+                height: navItem.offsetHeight,
+              });
+              hasSetInitialPosition = true;
+            }
+          }
+
+          if (id === "projects") {
+            projectsObserver.observe(section);
+          } else {
+            defaultObserver.observe(section);
+          }
         }
-      }
-    });
+      });
+    }, 500);
 
     return () => {
+      clearTimeout(timer);
       defaultObserver.disconnect();
       projectsObserver.disconnect();
     };
-  }, [menuItems]);
+  }, [menuItems, isProjectOpen]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
+
+  // Force update border position based on scroll position when returning from project
+  useEffect(() => {
+    if (isProjectOpen) return;
+
+    const updatePositionFromScroll = () => {
+      const scrollPosition = window.scrollY;
+      const sections = menuItems
+        .map((label) => {
+          const id = label.toLowerCase();
+          const section = document.getElementById(id);
+          return { id, section };
+        })
+        .filter(({ section }) => section);
+
+      for (const { id, section } of sections) {
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const sectionTop = rect.top + scrollPosition;
+          const sectionBottom = sectionTop + rect.height;
+
+          if (
+            scrollPosition >= sectionTop - 200 &&
+            scrollPosition < sectionBottom - 200
+          ) {
+            const navItem = itemRefs.current[id];
+            if (navItem) {
+              setPosition({
+                top: navItem.offsetTop,
+                left: navItem.offsetLeft,
+                width: navItem.offsetWidth,
+                height: navItem.offsetHeight,
+              });
+            }
+            break;
+          }
+        }
+      }
+    };
+
+    const timer = setTimeout(updatePositionFromScroll, 600);
+
+    return () => clearTimeout(timer);
+  }, [isProjectOpen, menuItems]);
 
   useEffect(() => {
     const checkScreenSize = () => setIsDesktop(window.innerWidth >= 768);

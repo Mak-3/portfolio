@@ -18,7 +18,7 @@ const BeyondCode = () => {
           delay={150}
           animateBy="words"
           direction="top"
-          className="text-3xl sm:text-4xl md:text-5xl mb-8 text-white font-heading font-bold"
+          className="text-3xl sm:text-4xl md:text-5xl mb-8 text-white font-heading font-bold text-center"
         />
 
         <motion.p

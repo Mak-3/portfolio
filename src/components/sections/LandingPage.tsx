@@ -235,15 +235,15 @@ const LandingPage = () => {
           <div
             className="md:absolute left-10 bottom-10 mt-8 md:mt-0"
             onClick={() => {
-              const target = document.getElementById("about");
+              const target = document.getElementById("projects");
               target?.scrollIntoView({ behavior: "smooth" });
             }}
-            aria-label="Scroll to about section"
+            aria-label="Scroll to projects section"
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                const target = document.getElementById("about");
+                const target = document.getElementById("projects");
                 target?.scrollIntoView({ behavior: "smooth" });
               }
             }}

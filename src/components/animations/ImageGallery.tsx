@@ -4,7 +4,6 @@ import cooking from "../../assets/images/Cooking.jpg";
 import microWritting from "../../assets/images/MicroWritting.jpg";
 import gym from "../../assets/images/Gym.jpg";
 import eating from "../../assets/images/Eating.jpg";
-import reading from "../../assets/images/Reading.jpg";
 import beach from "../../assets/images/Beach.jpg";
 import nature from "../../assets/images/Nature.jpg";
 import Image from "next/image";
@@ -15,28 +14,23 @@ const images = [
   { src: cooking, title: "Cooking 👨‍🍳" },
   { src: microWritting, title: "Micro writting ✍️" },
   { src: gym, title: "Gym 💪🏻" },
-  { src: eating, title: "Eating 🍰" },
+  { src: eating, title: "Food 🍰" },
   { src: beach, title: "Beach 🏖️" },
   { src: nature, title: "Nature 📚" },
 ];
 
 export default function ImageSlider() {
-  // Duplicate images enough times for seamless loop
   const repeatedImages = [...images, ...images, ...images];
   const x = useMotionValue(0);
-  const [speed, setSpeed] = useState(40); // pixels per second
+  const [speed, setSpeed] = useState(40);
   
-  // Calculate the width of one set of images
-  // Each image is 220px wide + 48px gap (12 * 4 = 48px in tailwind)
-  const imageWidth = 220 + 48; // min-w-[220px] + gap-12
+  const imageWidth = 220 + 48;
   const singleSetWidth = images.length * imageWidth;
 
-  // Animate manually each frame
   useAnimationFrame((t, delta) => {
-    const moveBy = (speed * delta) / 1000; // delta in ms
+    const moveBy = (speed * delta) / 1000; 
     let newX = x.get() - moveBy;
     
-    // Reset seamlessly when one full set has scrolled
     if (newX <= -singleSetWidth) {
       newX = newX + singleSetWidth;
     }

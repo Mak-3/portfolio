@@ -27,22 +27,54 @@ export default function Home() {
     | "hack-defense"
     | null;
 
+  const scrollToParam = searchParams.get("scrollTo");
+
   const [selectedProject, setSelectedProject] = useState<
     "none" | "slayday" | "smart-icons-kit" | "hack-defense"
   >(projectParam ?? "none");
 
   const [bgColor, setBgColor] = useState("#FFFFFF"); // background color state
+  const [prevProject, setPrevProject] = useState<string | null>(null);
 
   useEffect(() => {
-    setSelectedProject(projectParam ?? "none");
-  }, [projectParam]);
+    if (selectedProject !== "none") {
+      setPrevProject(selectedProject);
+    }
 
-  const openProject = (project: "slayday" | "smart-icons-kit" | "hack-defense") => {
+    setSelectedProject(projectParam ?? "none");
+  }, [projectParam, selectedProject]);
+
+  useEffect(() => {
+    // When opening a project, scroll to top
+    if (selectedProject !== "none") {
+      window.scrollTo(0, 0);
+    }
+    
+    // When closing a project and returning to main page
+    if (selectedProject === "none" && (scrollToParam || prevProject)) {
+      // First scroll to top, then scroll to target section
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        const targetSection = scrollToParam || "projects";
+        const section = document.getElementById(targetSection);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        if (prevProject) {
+          setPrevProject(null);
+        }
+      }, 300);
+    }
+  }, [selectedProject, scrollToParam, prevProject]);
+
+  const openProject = (
+    project: "slayday" | "smart-icons-kit" | "hack-defense"
+  ) => {
     router.push(`/?project=${project}`, { scroll: false });
   };
 
   const goBack = () => {
-    router.back();
+    router.push("/?scrollTo=projects", { scroll: false });
   };
 
   const closeProject = () => {
@@ -51,8 +83,10 @@ export default function Home() {
 
   const renderProjects = () => {
     if (selectedProject === "slayday") return <SlayDay onBack={goBack} />;
-    if (selectedProject === "smart-icons-kit") return <SmartIconsKit onBack={goBack} />;
-    if (selectedProject === "hack-defense") return <HackDefense onBack={goBack} />;
+    if (selectedProject === "smart-icons-kit")
+      return <SmartIconsKit onBack={goBack} />;
+    if (selectedProject === "hack-defense")
+      return <HackDefense onBack={goBack} />;
     return <Projects onSelectProject={openProject} />;
   };
 
@@ -109,7 +143,9 @@ export default function Home() {
               </>
             )}
 
-            {selectedProject !== "none" && <section>{renderProjects()}</section>}
+            {selectedProject !== "none" && (
+              <section>{renderProjects()}</section>
+            )}
           </motion.div>
         </AnimatePresence>
 

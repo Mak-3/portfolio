@@ -15,19 +15,19 @@ const projectData = [
   {
     id: "slayday",
     title: "SlayDay",
-    category: ["react native"],
+    tech: ["React Native", "TypeScript", "Firebase"],
     image: SlayDayCover,
   },
   {
     id: "smart-icons-kit",
     title: "Smart Icons Kit",
-    category: ["npm", "react", "react native"],
+    tech: ["TypeScript", "React", "React Native"],
     image: SmartIconsKitBanner,
   },
   {
     id: "hack-defense",
-    title: "Minimal landing page for client",
-    category: ["Web Dev", "Data Science"],
+    title: "Hack Defense landing page",
+    tech: ["React", "Tailwind CSS"],
     image: HackDefenceMockup,
   },
 ];
@@ -70,7 +70,7 @@ const Projects = ({ onSelectProject }: any) => {
   const [hovered, setHovered] = useState<string | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   return (
-    <section className="py-12 px-6 justify-center items-center flex flex-col">
+    <section className="px-6 py-6 justify-center items-center flex flex-col">
       <div>
         <BlurText
           text="Featured Work"
@@ -100,7 +100,7 @@ const Projects = ({ onSelectProject }: any) => {
                   <Image
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-48 md:h-60 2xl:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-40 md:h-60 2xl:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
@@ -122,14 +122,17 @@ const Projects = ({ onSelectProject }: any) => {
                     <span className="text-sm text-neutral-200">Explore</span>
                   </motion.div>
                 )}
-                <div className="p-5">
-                  <h3 className="font-medium text-lg flex items-center gap-2">
+                <div className="py-5 px-2 flex flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-0">
+                  <h3 className="font-medium text-md flex items-center gap-2">
                     {project.title}
                   </h3>
 
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {project.category.map((tag, i) => (
-                      <span key={i} className="text-xs rounded-full px-3 py-1">
+                  <div className="flex flex-wrap gap-1">
+                    {project.tech.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-xs rounded-full px-3 py-1 border-[1px] border-gray-200"
+                      >
                         {tag}
                       </span>
                     ))}

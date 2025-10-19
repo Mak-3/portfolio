@@ -29,7 +29,7 @@ const About = () => {
         delay={150}
         animateBy="words"
         direction="top"
-        className="text-3xl sm:text-4xl md:text-5xl text-gray-800 font-heading font-bold text-center mb-12"
+        className="text-3xl sm:text-4xl md:text-5xl text-gray-800 font-heading font-normal text-center mb-12"
       />
       <h2 id="about-heading" className="sr-only">
         About Section

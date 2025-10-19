@@ -7,15 +7,12 @@ interface SmartIconsKitProps {
 
 const SmartIconsKit = ({ onBack }: SmartIconsKitProps) => {
   return (
-    <div className="bg-white text-gray-900 font-sans p-10 max-w-6xl mx-auto space-y-12">
-      <div className="text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Smart Icons Kit</h1>
-      </div>
+    <div className="bg-white text-gray-900 font-sans p-6 sm:p-10 max-w-6xl mx-auto space-y-12">
       <div className="flex justify-center">
         <img
           src={smartIconsKitGif.src}
           alt="Smart Icons Kit Demo"
-          className="w-full rounded-lg"
+          className="w-full md:w-9/12 rounded-lg"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

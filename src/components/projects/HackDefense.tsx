@@ -7,10 +7,7 @@ interface HackDefenseProps {
 
 const HackDefense = ({ onBack }: HackDefenseProps) => {
   return (
-    <div className="bg-white text-gray-900 font-sans p-10 max-w-6xl mx-auto space-y-12">
-      <div className="text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Hack Defense</h1>
-      </div>
+    <div className="bg-white text-gray-900 font-sans p-6 sm:p-10 max-w-6xl mx-auto space-y-12">
       <div className="flex justify-center shadow-2xl">
         <img
           src={hackDefenseLandingPage.src}
