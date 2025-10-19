@@ -4,7 +4,7 @@ import BlurText from "../animations/BlurText";
 
 const Skills = () => {
   return (
-    <section className="w-full flex flex-col items-center justify-center px-4 py-16">
+    <section className="w-full flex flex-col items-center justify-center px-4 py-12">
       <BlurText
         text="My Skill Store"
         delay={150}

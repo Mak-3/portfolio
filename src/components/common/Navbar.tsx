@@ -1,16 +1,22 @@
 "use client";
-import { useRef, useLayoutEffect, useEffect, useState } from "react";
+import { useRef, useLayoutEffect, useEffect, useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import user from "../../assets/images/MyPic.png";
 
-const Navbar = () => {
-  const menuItems = ["Home", "About", "Projects", "Skills", "Contact"];
+interface NavbarProps {
+  isProjectOpen: boolean;
+  onCloseProject: () => void;
+}
+
+const Navbar = ({ isProjectOpen, onCloseProject }: NavbarProps) => {
+  const menuItems = useMemo(() => ["Home", "Projects", "Skills", "About", "Contact"], []);
   const containerRef = useRef<HTMLUListElement>(null);
   const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
   const [prevScroll, setPrevScroll] = useState(0);
   const [visible, setVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu state
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
   const [position, setPosition] = useState({
     top: 0,
     left: 0,
@@ -50,11 +56,17 @@ const Navbar = () => {
     }
   }, []);
 
-  // Animate underline to selected item
   const handleItemClick = (label: string) => {
     const sectionId = label.toLowerCase();
     const section = document.getElementById(sectionId);
     const navItem = itemRefs.current[sectionId];
+
+    if (isProjectOpen && !section) {
+      setPendingNavigation(sectionId);
+      onCloseProject();
+      setMenuOpen(false);
+      return;
+    }
 
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -69,12 +81,34 @@ const Navbar = () => {
       });
     }
 
-    setMenuOpen(false); // close mobile menu
+    setMenuOpen(false);
   };
 
-  // Update border on scroll to section
   useEffect(() => {
-    // Observer for most sections
+    if (pendingNavigation && !isProjectOpen) {
+      setTimeout(() => {
+        const section = document.getElementById(pendingNavigation);
+        const navItem = itemRefs.current[pendingNavigation];
+        
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        
+        if (navItem) {
+          setPosition({
+            top: navItem.offsetTop,
+            left: navItem.offsetLeft,
+            width: navItem.offsetWidth,
+            height: navItem.offsetHeight,
+          });
+        }
+        
+        setPendingNavigation(null);
+      }, 100);
+    }
+  }, [pendingNavigation, isProjectOpen]);
+
+  useEffect(() => {
     const defaultObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -93,7 +127,6 @@ const Navbar = () => {
       { threshold: 0.6 }
     );
 
-    // Observer for "projects" with a lower threshold
     const projectsObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -130,14 +163,13 @@ const Navbar = () => {
     };
   }, [menuItems]);
 
-  // Prevent background scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
 
   useEffect(() => {
     const checkScreenSize = () => setIsDesktop(window.innerWidth >= 768);
-    checkScreenSize(); // Initial check
+    checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
@@ -150,7 +182,6 @@ const Navbar = () => {
       className="sticky top-0 z-50 px-6 py-4 bg-white"
     >
       <div className="flex justify-between items-center">
-        {/* Left: Profile */}
         <div className="flex items-center gap-2">
           <Image
             src={user}

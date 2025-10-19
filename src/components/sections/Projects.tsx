@@ -1,138 +1,152 @@
 "use client";
-
-import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-
-import mainPage from "../../assets/images/projects/slayDayMainPage.png";
-import calender from "../../assets/images/projects/slayDayCalender.png";
-import checklist from "../../assets/images/projects/slayDayChecklist.png";
-import checklistOverview from "../../assets/images/projects/slayDayChecklistOverview.png";
-import eventForm from "../../assets/images/projects/slayDayEventForm.png";
-import pomodoro from "../../assets/images/projects/slayDayPomodoro.png";
+import SmartIconsKitBanner from "../../assets/images/projects/smartIconsKitBanner.png";
+import HackDefenceMockup from "../../assets/images/projects/Thumbnail.png";
+import SlayDayCover from "../../assets/images/projects/slayDayCover.png";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import BlurText from "../animations/BlurText";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import chefAnimation from "../../assets/animations/chef.json";
+import Lottie from "lottie-react";
+import { useInView } from "framer-motion";
 
-const images = [
-  mainPage,
-  checklistOverview,
-  checklist,
-  calender,
-  eventForm,
-  pomodoro,
+const projectData = [
+  {
+    id: "slayday",
+    title: "SlayDay",
+    category: ["react native"],
+    image: SlayDayCover,
+  },
+  {
+    id: "smart-icons-kit",
+    title: "Smart Icons Kit",
+    category: ["npm", "react", "react native"],
+    image: SmartIconsKitBanner,
+  },
+  {
+    id: "hack-defense",
+    title: "Minimal landing page for client",
+    category: ["Web Dev", "Data Science"],
+    image: HackDefenceMockup,
+  },
 ];
 
-const Projects = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrollContentRef = useRef<HTMLDivElement>(null);
+const Cooking = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { margin: "-100px" });
+
+  const lottieRef = useRef<any>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-    const scrollContent = scrollContentRef.current;
-
-    if (!container || !scrollContent) return;
-
-    let interval: NodeJS.Timeout | null = null;
-
-    const handleScroll = () => {
-      const scrollTop = window.scrollY - container.offsetTop;
-      const scrollDistance = scrollContent.scrollWidth - window.innerWidth;
-      if (scrollTop >= 0 && scrollTop <= scrollDistance) {
-        scrollContent.style.transform = `translateX(-${scrollTop}px)`;
-      }
-    };
-
-    const setupScroll = () => {
-      const isMobileOrTablet = window.innerWidth <= 1024;
-
-      // Clear existing interval and listeners
-      if (interval) clearInterval(interval);
-      window.removeEventListener("scroll", handleScroll);
-
-      scrollContent.style.transform = `translateX(0px)`;
-
-      if (isMobileOrTablet) {
-        let scrollPos = 0;
-        const scrollStep = 1;
-        const maxScroll = scrollContent.scrollWidth - window.innerWidth;
-        container.style.height = "auto";
-        interval = setInterval(() => {
-          scrollPos += scrollStep;
-          if (scrollPos > maxScroll) scrollPos = 0;
-          scrollContent.style.transform = `translateX(-${scrollPos}px)`;
-        }, 16);
-      } else {
-        const totalScrollWidth = scrollContent.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        const scrollDistance = totalScrollWidth - viewportWidth;
-
-        const containerHeight = scrollDistance + window.innerHeight;
-        container.style.height = `${containerHeight}px`;
-
-        window.addEventListener("scroll", handleScroll);
-      }
-    };
-
-    setupScroll();
-
-    window.addEventListener("resize", setupScroll);
-
-    return () => {
-      if (interval) clearInterval(interval);
-      window.removeEventListener("resize", setupScroll);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    if (isInView && lottieRef.current) {
+      lottieRef.current.play();
+    } else if (!isInView && lottieRef.current) {
+      lottieRef.current.stop();
+    }
+  }, [isInView]);
 
   return (
-    <div>
-      <div className="w-full justify-center items-center flex">
+    <div
+      ref={ref}
+      className="flex flex-col justify-center items-center h-full gap-8 text-center"
+    >
+      <div className="w-32 md:w-40">
+        <Lottie
+          lottieRef={lottieRef}
+          animationData={chefAnimation}
+          loop={false}
+          autoplay={false}
+        />
+      </div>
+      <span className="text-gray-700">
+        Might be cooking something new for my next project.
+      </span>
+    </div>
+  );
+};
+
+const Projects = ({ onSelectProject }: any) => {
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  return (
+    <section className="py-12 px-6 justify-center items-center flex flex-col">
+      <div>
         <BlurText
-          text="Projects"
+          text="Featured Work"
           delay={150}
           animateBy="words"
           direction="top"
-          className="text-3xl sm:text-4xl md:text-5xl text-gray-800 font-heading font-bold text-center"
+          className="text-3xl sm:text-4xl md:text-5xl text-gray-800 font-heading font-normal text-center mb-12"
         />
-      </div>
+        <div className="grid md:grid-cols-2 border border-gray-300 rounded-3xl overflow-hidden">
+          {projectData.map((project, index) => {
+            return (
+              <div
+                key={index}
+                className="group relative overflow-hidden border-b border-gray-300 md:border-b md:border-r last:border-none md:[&:nth-last-child(-n+2)]:border-b-0 even:md:border-r-0 transition-all duration-300 p-4 cursor-pointer"
+                onClick={() => onSelectProject(project.id)}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  setCursorPos({
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top,
+                  });
+                }}
+                onMouseEnter={() => setHovered(project.id)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                <div className="overflow-hidden rounded-3xl shadow-md">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-48 md:h-60 2xl:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
 
-      <div ref={containerRef} className="relative w-screen">
-        <div className="md:sticky top-0 overflow-x-hidden flex flex-col justify-center">
-          <div className="text-center px-10 mt-10">
-            <div className="w-fit my-4 mx-auto sm:mx-0 flex items-center justify-center sm:relative">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-400 flex justify-center items-center sm:absolute sm:top-2 sm:-right-9 z-0 mr-2 sm:mr-0">
-                <p className="text-xs font-medium text-white">01</p>
+                {hovered === project.id && (
+                  <motion.div
+                    className="absolute px-4 py-2 rounded-full pointer-events-none z-10 flex items-center gap-2 font-semibold
+               border border-white/10 backdrop-blur-md bg-black/40 text-white shadow-[0_0_20px_rgba(0,0,0,0.4)]
+               transition duration-300"
+                    style={{
+                      top: cursorPos.y,
+                      left: cursorPos.x,
+                      transform: "translate(-50%, -50%)",
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ArrowRightIcon className="w-4 h-4 -rotate-45 text-neutral-300" />
+                    <span className="text-sm text-neutral-200">Explore</span>
+                  </motion.div>
+                )}
+                <div className="p-5">
+                  <h3 className="font-medium text-lg flex items-center gap-2">
+                    {project.title}
+                  </h3>
+
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {project.category.map((tag, i) => (
+                      <span key={i} className="text-xs rounded-full px-3 py-1">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading text-black relative z-10">
-                SlayDay
-              </h2>
-            </div>
-
-            <p className="text-md md:text-lg text-gray-500 max-w-3xl mx-auto my-8">
-              SlayDay is a productivity app that combines event planning,
-              checklist management, and Pomodoro-style time tracking — all with
-              offline support and automatic daily backups to Cloud Firestore.
-            </p>
-          </div>
-
-          <div className="flex items-center">
-            <div
-              ref={scrollContentRef}
-              className="flex space-x-6 px-10 md:transition-transform md:duration-100 md:ease-out"
-            >
-              {images.map((img, idx) => (
-                <Image
-                  key={idx}
-                  src={img}
-                  alt={`Project ${idx + 1}`}
-                  width={300}
-                  className="rounded-xl flex-shrink-0"
-                />
-              ))}
-            </div>
+            );
+          })}
+          <div
+            key="cooking"
+            className="border-b border-gray-300 md:border-b md:border-r last:border-none even:md:border-r-0 transition-all duration-300 p-4 cursor-default"
+          >
+            <Cooking />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

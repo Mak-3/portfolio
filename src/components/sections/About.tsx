@@ -9,6 +9,7 @@ import VariableProximity from "../animations/VariableProximity";
 import { MdLocationOn } from "react-icons/md";
 import AnimatedSearchBar from "../animations/AnimatedSearchBar";
 import StatsSection from "../StatsSection";
+import BlurText from "../animations/BlurText";
 
 const About = () => {
   const ref = useRef(null);
@@ -23,6 +24,13 @@ const About = () => {
       role="region"
       aria-labelledby="about-heading"
     >
+      <BlurText
+        text="About me"
+        delay={150}
+        animateBy="words"
+        direction="top"
+        className="text-3xl sm:text-4xl md:text-5xl text-gray-800 font-heading font-bold text-center mb-12"
+      />
       <h2 id="about-heading" className="sr-only">
         About Section
       </h2>

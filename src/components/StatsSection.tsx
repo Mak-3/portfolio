@@ -43,12 +43,12 @@ export default function StatsSection() {
         if (data.status === "success") {
           animateCount(data.totalSolved, setLeetcodeCount, leetIntervalRef);
         } else {
-          animateCount(572, setLeetcodeCount, leetIntervalRef);
+          animateCount(632, setLeetcodeCount, leetIntervalRef);
         }
         setHasAnimated(true);
       })
       .catch(() => {
-        animateCount(572, setLeetcodeCount, leetIntervalRef);
+        animateCount(632, setLeetcodeCount, leetIntervalRef);
         setHasAnimated(true);
       });
 

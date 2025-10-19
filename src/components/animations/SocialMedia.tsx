@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaDiscord, FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 
 const navItems = [
@@ -17,7 +17,7 @@ const navItems = [
     label: "LinkedIn",
     color: "text-blue-500",
     bg: "bg-white",
-    link: "https://www.linkedin.com/in/mohammed-abdullah-khan-7b82a31a5/",
+    link: "https://www.linkedin.com/in/mohammed-abdullah-khan-7b82a31a5",
   },
   {
     icon: <FaGithub size={22} />,
@@ -31,7 +31,14 @@ const navItems = [
     label: "Instagram",
     color: "text-pink-500",
     bg: "bg-white",
-    link: "https://www.instagram.com/amour_infinito/",
+    link: "https://www.instagram.com/amour_infinito",
+  },
+  {
+    icon: <FaDiscord size={22} />,
+    label: "Discord",
+    color: "text-violet-500",
+    bg: "bg-white",
+    link: "https://discordapp.com/users/1007893255205175369",
   },
 ];
 

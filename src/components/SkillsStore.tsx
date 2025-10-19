@@ -1,6 +1,6 @@
 "use client";
 
-import React, { cloneElement, ReactElement, ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import {
   FaCode,
   FaServer,
@@ -13,8 +13,6 @@ import Image, { StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import skillsData from "../lib/skills";
 import user from "../assets/images/MyPic.png";
-import reactNative from "../assets/images/React_Native.png";
-import mernStack from "../assets/images/MERN_Stack.png";
 import { FiSearch } from "react-icons/fi";
 
 interface SkillItem {
