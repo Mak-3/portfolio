@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,7 +17,7 @@ import SlayDay from "../components/projects/SlayDay";
 import SmartIconsKit from "../components/projects/SmartIconsKit";
 import HackDefense from "../components/projects/HackDefense";
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -152,5 +152,13 @@ export default function Home() {
         <Footer />
       </motion.div>
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
