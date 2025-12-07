@@ -25,8 +25,8 @@ const BeyondCode = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-6 text-md sm:text-xl"
-          style={{color: colors.pink.light}}
+          className="mt-6 text-md sm:text-xl font-bold"
+          style={{color: colors.blue.dark}}
         >
           Driven by flavors, movement, and journeys with meaning
         </motion.p>

@@ -16,7 +16,7 @@ const images = [
   { src: gym, title: "Gym 💪🏻" },
   { src: eating, title: "Food 🍰" },
   { src: beach, title: "Beach 🏖️" },
-  { src: nature, title: "Nature 📚" },
+  { src: nature, title: "Nature 🏕️" },
 ];
 
 export default function ImageSlider() {
