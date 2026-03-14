@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import SmartIconsKitBanner from "../../assets/images/projects/smartIconsKitBanner.png";
-import HackDefenceMockup from "../../assets/images/projects/Thumbnail.png";
+import FeatureDeckBanner from "../../assets/images/projects/featureDeck.png";
 import SlayDayCover from "../../assets/images/projects/slayDayCover.png";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -13,6 +13,12 @@ import { useInView } from "framer-motion";
 
 const projectData = [
   {
+    id: "featuredeck",
+    title: "FeatureDeck",
+    tech: ["SDK", "TypeScript", "React Native"],
+    image: FeatureDeckBanner,
+  },
+  {
     id: "slayday",
     title: "SlayDay",
     tech: ["React Native", "TypeScript", "Firebase"],
@@ -23,13 +29,7 @@ const projectData = [
     title: "Smart Icons Kit",
     tech: ["TypeScript", "React", "React Native"],
     image: SmartIconsKitBanner,
-  },
-  {
-    id: "hack-defense",
-    title: "Hack Defense landing page",
-    tech: ["React", "Tailwind CSS"],
-    image: HackDefenceMockup,
-  },
+  }
 ];
 
 const Cooking = () => {

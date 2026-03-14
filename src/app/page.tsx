@@ -16,6 +16,7 @@ import Projects from "../components/sections/Projects";
 import SlayDay from "../components/projects/SlayDay";
 import SmartIconsKit from "../components/projects/SmartIconsKit";
 import HackDefense from "../components/projects/HackDefense";
+import FeatureDeck from "../components/projects/FeatureDeck";
 
 function HomeContent() {
   const router = useRouter();
@@ -25,12 +26,13 @@ function HomeContent() {
     | "slayday"
     | "smart-icons-kit"
     | "hack-defense"
+    | "featuredeck"
     | null;
 
   const scrollToParam = searchParams.get("scrollTo");
 
   const [selectedProject, setSelectedProject] = useState<
-    "none" | "slayday" | "smart-icons-kit" | "hack-defense"
+    "none" | "slayday" | "smart-icons-kit" | "hack-defense" | "featuredeck"
   >(projectParam ?? "none");
 
   const [bgColor, setBgColor] = useState("#FFFFFF"); // background color state
@@ -68,7 +70,7 @@ function HomeContent() {
   }, [selectedProject, scrollToParam, prevProject]);
 
   const openProject = (
-    project: "slayday" | "smart-icons-kit" | "hack-defense"
+    project: "slayday" | "smart-icons-kit" | "hack-defense" | "featuredeck"
   ) => {
     router.push(`/?project=${project}`, { scroll: false });
   };
@@ -87,6 +89,8 @@ function HomeContent() {
       return <SmartIconsKit onBack={goBack} />;
     if (selectedProject === "hack-defense")
       return <HackDefense onBack={goBack} />;
+    if (selectedProject === "featuredeck")
+      return <FeatureDeck onBack={goBack} />;
     return <Projects onSelectProject={openProject} />;
   };
 

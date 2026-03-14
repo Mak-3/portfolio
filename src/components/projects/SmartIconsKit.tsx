@@ -59,7 +59,7 @@ const SmartIconsKit = ({ onBack }: SmartIconsKitProps) => {
               <span className="text-gray-900">3 days</span>
             </div>
             <div className="flex justify-between border-b border-gray-200 pb-2">
-              <span className="font-medium text-gray-500">package Link</span>
+              <span className="font-medium text-gray-500">NPM Package Link</span>
               <a
                 href="https://www.npmjs.com/package/smart-icons-kit"
                 target="_blank"
