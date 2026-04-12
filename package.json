@@ -14,12 +14,14 @@
     "@vercel/analytics": "^1.5.0",
     "framer-motion": "^12.6.3",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.577.0",
     "matter-js": "^0.20.0",
     "next": "15.2.6",
     "react": "19.0.1",
     "react-dom": "19.0.1",
     "react-icons": "^5.5.0",
-    "sharp": "^0.34.4"
+    "sharp": "^0.34.4",
+    "smart-icons-kit": "^1.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

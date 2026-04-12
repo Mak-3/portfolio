@@ -6,11 +6,13 @@ import gym from "../../assets/images/Gym.jpg";
 import eating from "../../assets/images/Eating.jpg";
 import beach from "../../assets/images/Beach.jpg";
 import nature from "../../assets/images/Nature.jpg";
+import scuba from "../../assets/images/ScubaDiving.png"
 import Image from "next/image";
 import { useState } from "react";
 
 const images = [
   { src: exploring, title: "Exploring ⛰️" },
+  { src: scuba, title: "Into the Deep 🌊🤿" },
   { src: cooking, title: "Cooking 👨‍🍳" },
   { src: microWritting, title: "Micro writting ✍️" },
   { src: gym, title: "Gym 💪🏻" },

@@ -1,19 +1,137 @@
-import React from "react";
-import smartIconsKitGif from "../../assets/gifs/smart-icons-kit.gif";
+import React, { useState } from "react";
+import { HelpCircle } from "lucide-react";
+import { SmartIcon } from "smart-icons-kit";
 
 interface SmartIconsKitProps {
   onBack: () => void;
 }
 
 const SmartIconsKit = ({ onBack }: SmartIconsKitProps) => {
+  const [query, setQuery] = useState("home");
+  const [prefixMatch, setPrefixMatch] = useState(true);
+  const [sentenceMatch, setSentenceMatch] = useState(true);
+
+  const quickTryTerms = [
+    "home",
+    "house",
+    "notification",
+    "shopping",
+    "phone outgoing",
+    "I need a camera icon",
+    "hotel",
+    "social github",
+  ];
+
+  const sampleUseCases = [
+    { label: "Synonym", value: "house" },
+    { label: "Prefix Match", value: "shop" },
+    { label: "Sentence Match", value: "I need a camera icon" },
+  ];
+
   return (
     <div className="bg-white text-gray-900 font-sans p-6 sm:p-10 max-w-6xl mx-auto space-y-12">
-      <div className="flex justify-center">
-        <img
-          src={smartIconsKitGif.src}
-          alt="Smart Icons Kit Demo"
-          className="w-full md:w-9/12 rounded-lg"
-        />
+      <div className="rounded-2xl border border-gray-200 bg-linear-to-br from-slate-50 to-blue-50 p-5 sm:p-7 space-y-5 shadow-sm">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-semibold">Live Smart Icons Demo</h2>
+            <p className="text-sm text-gray-600 mt-1">
+              Type any icon intent and see Smart Icons Kit resolve the best match in real time.
+            </p>
+          </div>
+          <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-blue-100 text-blue-700">
+            Powered by `smart-icons-kit`
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr,0.8fr] gap-5">
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="icon-query" className="text-sm font-medium text-gray-700 block mb-2">
+                Query
+              </label>
+              <input
+                id="icon-query"
+                type="text"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Try: house, shopping, I need a camera icon..."
+                className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {quickTryTerms.map((term) => (
+                <button
+                  key={term}
+                  type="button"
+                  onClick={() => setQuery(term)}
+                  className="rounded-full border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 transition"
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex gap-6 flex-wrap">
+              <label className="inline-flex items-center gap-2 text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={prefixMatch}
+                  onChange={(event) => setPrefixMatch(event.target.checked)}
+                  className="h-4 w-4 accent-blue-600"
+                />
+                Prefix match
+              </label>
+              <label className="inline-flex items-center gap-2 text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={sentenceMatch}
+                  onChange={(event) => setSentenceMatch(event.target.checked)}
+                  className="h-4 w-4 accent-blue-600"
+                />
+                Sentence match
+              </label>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-blue-100 bg-white p-4 flex flex-col justify-center items-center text-center min-h-[180px]">
+            <SmartIcon
+              name={query}
+              prefixMatch={prefixMatch}
+              sentenceMatch={sentenceMatch}
+              fallbackIcon={HelpCircle}
+              size={52}
+              strokeWidth={2}
+              className="text-blue-600"
+            />
+            <p className="mt-3 text-sm text-gray-600">
+              Resolved icon for: <span className="font-medium text-gray-900">{query || "empty query"}</span>
+            </p>
+            <p className="text-xs text-gray-500 mt-1">Fallback icon appears when no match is found.</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {sampleUseCases.map((sample) => (
+            <div
+              key={sample.label}
+              className="rounded-lg border border-gray-200 bg-white px-3 py-3 flex items-center justify-between"
+            >
+              <div>
+                <p className="text-xs text-gray-500">{sample.label}</p>
+                <p className="text-sm font-medium text-gray-800">{sample.value}</p>
+              </div>
+              <SmartIcon
+                name={sample.value}
+                prefixMatch
+                sentenceMatch
+                fallbackIcon={HelpCircle}
+                size={20}
+                className="text-blue-600"
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
