@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import { FaMedium } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
+const LEETCODE_USERNAME = "Mak3";
+const LEETCODE_FALLBACK_TOTAL = 642;
+
 export default function StatsSection() {
   const [leetcodeCount, setLeetcodeCount] = useState(0);
   const [blogsCount, setBlogsCount] = useState(0);
@@ -37,20 +40,36 @@ export default function StatsSection() {
   useEffect(() => {
     if (hasAnimated) return;
 
-    fetch("https://leetcode-stats-api.herokuapp.com/Mak3")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          animateCount(data.totalSolved, setLeetcodeCount, leetIntervalRef);
-        } else {
-          animateCount(632, setLeetcodeCount, leetIntervalRef);
+    const fetchLeetCodeStats = async () => {
+      try {
+        const response = await fetch(
+          `https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USERNAME}`
+        );
+
+        if (!response.ok) {
+          throw new Error("LeetCode stats request failed");
         }
+
+        const data = await response.json();
+        const totalSolved = Number(data?.totalSolved);
+
+        if (Number.isFinite(totalSolved) && totalSolved > 0) {
+          animateCount(totalSolved, setLeetcodeCount, leetIntervalRef);
+        } else {
+          animateCount(
+            LEETCODE_FALLBACK_TOTAL,
+            setLeetcodeCount,
+            leetIntervalRef
+          );
+        }
+      } catch {
+        animateCount(LEETCODE_FALLBACK_TOTAL, setLeetcodeCount, leetIntervalRef);
+      } finally {
         setHasAnimated(true);
-      })
-      .catch(() => {
-        animateCount(632, setLeetcodeCount, leetIntervalRef);
-        setHasAnimated(true);
-      });
+      }
+    };
+
+    fetchLeetCodeStats();
 
     animateCount(2, setBlogsCount, blogIntervalRef);
 
@@ -64,7 +83,7 @@ export default function StatsSection() {
     {
       label: "DSA Problems Solved",
       value: leetcodeCount,
-      link: "https://leetcode.com/Mak3/",
+      link: `https://leetcode.com/${LEETCODE_USERNAME}/`,
       icon: <SiLeetcode className="w-4 h-4"/>,
       tooltip: "Leetcode →",
     },
