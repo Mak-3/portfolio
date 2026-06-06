@@ -10,6 +10,8 @@ import {
   FaPython,
   FaMobileAlt,
   FaCode,
+  FaBrain,
+  FaSearch,
 } from "react-icons/fa";
 import {
   SiTypescript,
@@ -24,6 +26,8 @@ import {
   SiVercel,
   SiExpo,
   SiRealm,
+  SiLangchain,
+  SiOpenai,
 } from "react-icons/si";
 import { BsBootstrap } from "react-icons/bs";
 import reactNative from "../assets/images/React_Native.png";
@@ -95,6 +99,24 @@ const skillsData: SkillsData = {
         desc: "Utilized for fast and custom UI design in portfolio and product-based UIs.",
         badge: "UI TOOLKIT",
         icon: <SiTailwindcss className="text-sky-400" />,
+      },
+      {
+        name: "Angular",
+        desc: "Used to build structured, component-driven SPAs with scalable frontend architecture.",
+        badge: "FRAMEWORK",
+        icon: <FaCode className="text-red-500" />,
+      },
+      {
+        name: "TanStack Query",
+        desc: "Used for robust server-state handling, caching, retries, and background data sync.",
+        badge: "DATA FETCHING",
+        icon: <FaCode className="text-rose-500" />,
+      },
+      {
+        name: "shadcn/ui",
+        desc: "Built polished, accessible UI components on top of Tailwind CSS for modern product UIs.",
+        badge: "UI SYSTEM",
+        icon: <FaCode className="text-neutral-200" />,
       },
     ],
     recent: [
@@ -223,6 +245,12 @@ const skillsData: SkillsData = {
         badge: "DATA ACCESS",
         icon: <FaDatabase className="text-purple-400" />,
       },
+      {
+        name: "Supabase",
+        desc: "Used for Postgres-backed storage, auth, and realtime features in full-stack apps.",
+        badge: "POSTGRES + BaaS",
+        icon: <FaDatabase className="text-emerald-400" />,
+      },
     ],
     recent: [
       {
@@ -242,6 +270,60 @@ const skillsData: SkillsData = {
       },
     ],
     learning: [],
+  },
+
+  AI: {
+    skills: [
+      {
+        name: "RAG",
+        desc: "Built retrieval-augmented generation flows to ground LLM responses with custom knowledge.",
+        badge: "LLM PATTERN",
+        icon: <FaSearch className="text-violet-400" />,
+      },
+      {
+        name: "AI",
+        desc: "Designed AI-powered features with prompt workflows, evaluation, and production-focused thinking.",
+        badge: "CORE",
+        icon: <FaBrain className="text-fuchsia-400" />,
+      },
+      {
+        name: "LangChain",
+        desc: "Used LangChain to orchestrate LLM chains, tools, and context-aware AI pipelines.",
+        badge: "ORCHESTRATION",
+        icon: <SiLangchain className="text-green-400" />,
+      },
+      {
+        name: "Vector DB",
+        desc: "Worked with vector databases for semantic search, embeddings storage, and retrieval pipelines.",
+        badge: "SEMANTIC SEARCH",
+        icon: <FaDatabase className="text-cyan-400" />,
+      },
+    ],
+    recent: [
+      {
+        name: "RAG",
+        desc: "Recently used for contextual Q&A and knowledge-assisted response generation.",
+        badge: "LLM PATTERN",
+        icon: <FaSearch className="text-violet-400" />,
+      },
+    ],
+    featured: [
+      {
+        name: "LangChain + RAG",
+        desc: "Composed AI workflows that combine retrieval, prompting, and response orchestration.",
+        badge: "AI STACK",
+        icon: <SiOpenai className="text-emerald-400 text-4xl" />,
+        banner: "from-violet-500 via-fuchsia-500 to-cyan-500",
+      },
+    ],
+    learning: [
+      {
+        name: "Vector DB",
+        desc: "Going deeper into indexing strategies and retrieval quality tuning for RAG systems.",
+        badge: "SEMANTIC SEARCH",
+        icon: <FaDatabase className="text-cyan-400" />,
+      },
+    ],
   },
 
   Tools: {
@@ -376,6 +458,24 @@ const skillsData: SkillsData = {
         icon: <SiTailwindcss className="text-sky-400" />,
       },
       {
+        name: "Angular",
+        desc: "Used to build structured, component-driven SPAs with scalable frontend architecture.",
+        badge: "FRAMEWORK",
+        icon: <FaCode className="text-red-500" />,
+      },
+      {
+        name: "TanStack Query",
+        desc: "Used for robust server-state handling, caching, retries, and background data sync.",
+        badge: "DATA FETCHING",
+        icon: <FaCode className="text-rose-500" />,
+      },
+      {
+        name: "shadcn/ui",
+        desc: "Built polished, accessible UI components on top of Tailwind CSS for modern product UIs.",
+        badge: "UI SYSTEM",
+        icon: <FaCode className="text-neutral-200" />,
+      },
+      {
         name: "NativeWind",
         desc: "Used to bring Tailwind-like utility-first styling to React Native apps, improving dev speed and consistency.",
         badge: "UTILITY STYLE",
@@ -446,6 +546,36 @@ const skillsData: SkillsData = {
         desc: "Proficient in writing complex queries for relational data analysis.",
         badge: "DATA ACCESS",
         icon: <FaDatabase className="text-purple-400" />,
+      },
+      {
+        name: "Supabase",
+        desc: "Used for Postgres-backed storage, auth, and realtime features in full-stack apps.",
+        badge: "POSTGRES + BaaS",
+        icon: <FaDatabase className="text-emerald-400" />,
+      },
+      {
+        name: "RAG",
+        desc: "Built retrieval-augmented generation flows to ground LLM responses with custom knowledge.",
+        badge: "LLM PATTERN",
+        icon: <FaSearch className="text-violet-400" />,
+      },
+      {
+        name: "AI",
+        desc: "Designed AI-powered features with prompt workflows, evaluation, and production-focused thinking.",
+        badge: "CORE",
+        icon: <FaBrain className="text-fuchsia-400" />,
+      },
+      {
+        name: "LangChain",
+        desc: "Used LangChain to orchestrate LLM chains, tools, and context-aware AI pipelines.",
+        badge: "ORCHESTRATION",
+        icon: <SiLangchain className="text-green-400" />,
+      },
+      {
+        name: "Vector DB",
+        desc: "Worked with vector databases for semantic search, embeddings storage, and retrieval pipelines.",
+        badge: "SEMANTIC SEARCH",
+        icon: <FaDatabase className="text-cyan-400" />,
       },
       {
         name: "Git",

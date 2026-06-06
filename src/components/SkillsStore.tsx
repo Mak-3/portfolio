@@ -7,6 +7,7 @@ import {
   FaDatabase,
   FaTools,
   FaMobileAlt,
+  FaBrain,
 } from "react-icons/fa";
 import { TbLayoutDashboard } from "react-icons/tb";
 import Image, { StaticImageData } from "next/image";
@@ -36,6 +37,7 @@ const categories = [
   { icon: <TbLayoutDashboard />, name: "Frontend" },
   { icon: <FaServer />, name: "Backend" },
   { icon: <FaDatabase />, name: "Database" },
+  { icon: <FaBrain />, name: "AI" },
   { icon: <FaTools />, name: "Tools" },
   { icon: <FaMobileAlt />, name: "Mobile Development" },
 ];

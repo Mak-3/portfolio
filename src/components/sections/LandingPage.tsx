@@ -215,9 +215,7 @@ const LandingPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.1 }}
           >
-            I have 2+ years of experience contributing to a low-code product’s
-            core codebase, combining full-stack and mobile expertise to solve
-            real-world challenges.
+            3+ years of experience building production-grade mobile and full-stack applications, turning complex problems into clean, scalable solutions.
           </motion.p>
           <motion.a
             href="https://drive.google.com/uc?export=download&id=1p3w9kLc64Em62v-3w-qe1_4fAtj3K9dO"
