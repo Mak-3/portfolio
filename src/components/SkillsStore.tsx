@@ -13,7 +13,7 @@ import { TbLayoutDashboard } from "react-icons/tb";
 import Image, { StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import skillsData from "../lib/skills";
-import user from "../assets/images/MyPic.png";
+import user from "../assets/images/MohammedAbdullahKhanProfile.png";
 import { FiSearch } from "react-icons/fi";
 
 interface SkillItem {

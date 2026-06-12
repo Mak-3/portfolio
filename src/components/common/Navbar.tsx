@@ -2,7 +2,7 @@
 import { useRef, useLayoutEffect, useEffect, useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import user from "../../assets/images/MyPic.png";
+import user from "../../assets/images/MohammedAbdullahKhanProfile.png";
 
 interface NavbarProps {
   isProjectOpen: boolean;

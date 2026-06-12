@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import React, { useRef } from "react";
 import Eye from "../animations/Eye";
 import Image from "next/image";
-import myPic from "../../assets/images/MyPic.png";
+import myPic from "../../assets/images/MohammedAbdullahKhanProfile.png";
 import charminar from "../../assets/images/Charminar.jpg";
 import Lottie from "lottie-react";
 import wavingHand from "../../assets/animations/handWave.json";
@@ -143,8 +143,8 @@ const LandingPage = () => {
                     <Image
                       src={myPic}
                       alt="Abdullah Khan Picture"
-                      sizes="(max-width: 768px) 40px, 60px"
-                      className="rounded-full shadow-lg group-hover:cursor-pointer w-[35px] h-[25px] md:w-[80px] md:h-[60px]"
+                      sizes="(max-width: 768px) 40px, 50px"
+                      className="rounded-full shadow-lg group-hover:cursor-pointer w-[35px] h-[25px] md:w-[75px] md:h-[60px]"
                       placeholder="blur"
                     />
                     {/* Tooltip */}
