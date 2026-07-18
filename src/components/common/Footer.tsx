@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaHeart } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiFramer } from 'react-icons/si';
@@ -38,6 +39,13 @@ const Footer = () => {
       <div className="mt-4 text-gray-500 text-center">
         © {currentYear} Mohammed Abdullah Khan. All rights reserved.
       </div>
+
+      <Link
+        href="/accessibility-handbook"
+        className="mt-2 text-gray-400 hover:text-white underline underline-offset-2 transition-colors"
+      >
+        Read the Accessibility Handbook
+      </Link>
     </motion.footer>
   );
 };

@@ -21,6 +21,7 @@
     "react-dom": "19.0.1",
     "react-icons": "^5.5.0",
     "sharp": "^0.34.4",
+    "shiki": "^4.3.1",
     "smart-icons-kit": "^1.0.2"
   },
   "devDependencies": {
