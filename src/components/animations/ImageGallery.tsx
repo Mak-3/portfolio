@@ -7,12 +7,14 @@ import eating from "../../assets/images/Eating.jpg";
 import beach from "../../assets/images/Beach.jpg";
 import nature from "../../assets/images/Nature.jpg";
 import scuba from "../../assets/images/ScubaDiving.png"
+import trek from "../../assets/images/Trek.jpg"
 import Image from "next/image";
 import { useState } from "react";
 
 const images = [
   { src: exploring, title: "Exploring ⛰️" },
   { src: scuba, title: "Into the Deep 🌊🤿" },
+  { src: trek, title: "Trekking 🧗" },
   { src: cooking, title: "Cooking 👨‍🍳" },
   { src: microWritting, title: "Micro writting ✍️" },
   { src: gym, title: "Gym 💪🏻" },

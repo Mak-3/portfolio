@@ -2,7 +2,7 @@ import React from "react";
 import ImageSlider from "../animations/ImageGallery";
 import BlurText from "../animations/BlurText";
 import { motion } from "framer-motion";
-import bgImage from "../../assets/images/BeachViewBackground.jpg";
+import bgImage from "../../assets/images/BeyondCodeBG.jpg";
 import { colors } from "@/src/lib/colors";
 
 const BeyondCode = () => {

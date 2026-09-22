@@ -36,16 +36,16 @@ const Footer = () => {
         </div>
       </div>
 
+      <Link
+        href="/resources"
+        className="mt-4 text-gray-400 hover:text-white underline underline-offset-2 transition-colors"
+      >
+        Free AWS notes &amp; resources
+      </Link>
+
       <div className="mt-4 text-gray-500 text-center">
         © {currentYear} Mohammed Abdullah Khan. All rights reserved.
       </div>
-
-      <Link
-        href="/accessibility-handbook"
-        className="mt-2 text-gray-400 hover:text-white underline underline-offset-2 transition-colors"
-      >
-        Read the Accessibility Handbook
-      </Link>
     </motion.footer>
   );
 };
